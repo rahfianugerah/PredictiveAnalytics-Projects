@@ -22,6 +22,8 @@ import zipfile
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly.graph_objs as goo
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 from plotly.subplots import make_subplots
 from sklearn.model_selection import train_test_split
@@ -170,7 +172,7 @@ for i in range(len(df['HeartDisease'].value_counts())):
     fig.add_annotation(
         x=i,
         y=df['HeartDisease'].value_counts()[i],
-        text=str(df['HeartDisease'].value_counts()[i]),
+        text=str(),
         showarrow=False,
         font=dict(size=15),
         yshift=10
@@ -187,7 +189,7 @@ fig.add_trace(go.Pie(
 
 # Update layout
 fig.update_layout(
-    title='Heart Disease Distribution',
+    title='Heart Disease Distribution and Percentages',
     width=1000,
     height=500,
     grid=dict(rows=1, columns=2),
@@ -262,25 +264,11 @@ fig.add_trace(go.Bar(
     showlegend=False  # Remove legend entry for the bar chart
 ))
 
-# Pie chart
-fig.add_trace(go.Pie(
-    labels=chestpain_label,
-    values=df['ChestPainType'].value_counts().values,
-    hole=0.3,
-    marker_colors=chestpain_colors,
-    textinfo='percent+label',
-    domain={'x': [0.6, 1]}  # Adjust position of the pie chart
-))
-
 # Update layout
 fig.update_layout(
     title_text="Chest Pain Type Distribution and Percentages",
     width=1000,
     height=500,
-    annotations=[
-        dict(text=" ", x=0.75, y=-0.1, showarrow=False, font=dict(size=16)),
-    ],
-    grid=dict(rows=1, columns=2),
 )
 
 # Show figure
@@ -351,27 +339,11 @@ fig.add_trace(go.Bar(
     name='Distribusi dari ST Slope'
 ))
 
-# Pie chart
-fig.add_trace(go.Pie(
-    labels=slope_label,
-    values=df['ST_Slope'].value_counts().values,
-    hole=0.3,
-    marker_colors=slope_color,
-    textinfo='percent+label',
-    name='ST Slope',
-    domain={'x': [0.6, 1]}
-))
-
 # Update layout
 fig.update_layout(
-    title_text="Distribusi dan Persentase ST Slope",
+    title_text="ST Slope Distribution and Percentages ",
     width=1000,
     height=500,
-    annotations=[
-        dict(text=" ", x=0.25, y=-0.1, showarrow=False, font=dict(size=16)),
-        dict(text=" ", x=0.75, y=-0.1, showarrow=False, font=dict(size=16)),
-    ],
-    grid=dict(rows=1, columns=2),
 )
 
 # Show figure
@@ -410,6 +382,11 @@ fig.show()
 # </p>
 
 # %%
+#Correlation between all features 
+fig , ax = plt.subplots(figsize=(13,6))   
+sns.heatmap(df.corr(), cmap="inferno", linecolor='white' , annot=True , linewidths=1 , ax=ax)
+
+# %%
 # Select only numerical columns for correlation matrix computation
 numerical_df = df.select_dtypes(include=['int64', 'float64'])
 
@@ -432,6 +409,44 @@ fig_heatmap.update_layout(
     title="Correlation Matrix",
     width=1000,
     height=500
+)
+
+# Display figure
+fig_heatmap.show()
+
+# %%
+# Select only numerical columns for correlation matrix computation
+numerical_df = df.select_dtypes(include=['int64', 'float64'])
+
+# Compute correlation matrix
+corr_matrix = numerical_df.corr(method="pearson")
+
+# Plot correlation matrix with Plotly
+fig_heatmap = go.Figure()
+
+# Create heatmap trace with text showing correlation values
+heatmap_trace = go.Heatmap(
+    z=corr_matrix.values,
+    x=corr_matrix.columns,
+    y=corr_matrix.columns,
+    colorscale='Inferno',  # Adjust colorscale as desired
+    zmin=-1, zmax=1,
+    hoverongaps=False,
+    text=corr_matrix.round(2),  # Display rounded correlation values
+    texttemplate='%{text}',  # Template to show only correlation values
+    showscale=False  # Hide colorscale (optional)
+)
+
+# Add heatmap trace to the figure
+fig_heatmap.add_trace(heatmap_trace)
+
+# Update layout
+fig_heatmap.update_layout(
+    title="Correlation Matrix",
+    width=1000,
+    height=500,
+    xaxis_title="Features",
+    yaxis_title="Features"  # Add axis titles for clarity
 )
 
 # Display figure
@@ -751,8 +766,8 @@ for name, model in model_dict.items():
         raise ValueError(f"The model '{name}' is not fitted or does not have a predict method.")
 
 # Predictions for x_test
-x_test_samples = x_test.iloc[:5].copy()
-test_predictions = {'Test True Y': y_test[:5].values}  # Ensure y_test is in the correct format
+x_test_samples = x_test.iloc[:10].copy()
+test_predictions = {'Test True Y': y_test[:10].values}  # Ensure y_test is in the correct format
 
 for model_name, model in model_dict.items():
     try:
@@ -763,8 +778,8 @@ for model_name, model in model_dict.items():
 test_predictions_df = pd.DataFrame(test_predictions)
 
 # Predictions for x_train
-x_train_samples = x_train.iloc[:5].copy()
-train_predictions = {'Train True Y': y_train[:5].values}  # Ensure y_train is in the correct format
+x_train_samples = x_train.iloc[:10].copy()
+train_predictions = {'Train True Y': y_train[:10].values}  # Ensure y_train is in the correct format
 
 for model_name, model in model_dict.items():
     try:
