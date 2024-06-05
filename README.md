@@ -28,6 +28,6 @@
 <p align="justify">
   Several publicly available datasets were utilized for this project. 
   Descriptions and access information for each dataset can be found in the references section
-  (<a href="https://drive.google.com/file/d/1RaBmV6Q6FYWU4HWZs80Suqd7KQC34diQ/view?usp=sharing">Dicoding</a>,
-  <a href="https://www.kaggle.com/datasets/lakshmi25npathi/bike-sharing-dataset">Kaggle</a>). These datasets provided the foundation for my exploration of this project.
+  (<a href="https://archive.ics.uci.edu/dataset/45/heart+disease">UCI Machine Learning Repository</a>,
+  <a href="https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction">Kaggle</a>). These datasets provided the foundation for my exploration of this project.
 </p>
