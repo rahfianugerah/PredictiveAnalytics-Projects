@@ -1,4 +1,4 @@
-# Machine Learning Project Report - Naufal Rahfi Anugerah
+# Machine Learning Project Report
 
 ## Project Domain
 
