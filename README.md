@@ -4,6 +4,9 @@
 ![Python]( https://img.shields.io/badge/Made_with-Python-blue)
 
 ## Background
+<p align="justify">
+Heart disease is one of the leading causes of death worldwide. Early detection and accurate diagnosis are very important to increase the patient's chances of survival. In this context, machine learning (ML) technology has emerged as a valuable tool to help medical personnel diagnose heart disease more quickly and accurately. Two algorithms that are often used in medical data classification are K-Nearest Neighbors (KNN) and Random Forest (RF). This project aims to compare the performance of these two algorithms in determining patients with heart failure.
+</p>
 
 ## Project Author
 - GitHub: [@rahfianugerah](https://www.github.com/rahfianugerah)
