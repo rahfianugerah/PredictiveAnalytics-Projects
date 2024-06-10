@@ -3,6 +3,8 @@
 ![Maintenance](https://img.shields.io/badge/Maintenance-Yes-green)
 ![Python]( https://img.shields.io/badge/Made_with-Python-blue)
 
+## Background
+
 ## Project Author
 - GitHub: [@rahfianugerah](https://www.github.com/rahfianugerah)
 
